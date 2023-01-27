@@ -21,14 +21,24 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            var books = _dbContext.Books;
-            ViewBag.Books = books;
+            return RedirectToAction("Index", "Books");
+        }
+
+        [HttpGet]
+        public IActionResult Buy(int? bookId)
+        {
+            ViewBag.BookId = bookId ?? 0;
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public string Buy(Purchase purchase)
         {
-            return View();
+            purchase.Date = DateTime.Now;
+
+            _dbContext.Purchases.Add(purchase);
+            _dbContext.SaveChanges();
+            return $"Дякуємо, {purchase.Person}, за купівлю!";
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
