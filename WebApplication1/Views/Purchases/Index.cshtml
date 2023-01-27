@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Purchase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<p>
+    @*<a asp-action="Create">Create New Purchase</a>*@
+    <a asp-controller="Books" asp-action="Index">To Books</a>
+</p>
+
+<table class="table">
+    <tbody>
+        @foreach (var purchase in Model)
+        {
+            <tr>
+                <td>@purchase.Customer.FirstName</td>
+                <td>@purchase.Customer.LastName</td>
+                <td>@purchase.Book.Name</td>
+                <td>@purchase.Book.Author</td>
+                <td>@purchase.Date.ToLongDateString()</td>
+                <td>@purchase.Book.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
